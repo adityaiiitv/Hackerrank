@@ -16,28 +16,21 @@ public class Solution{
             public int compare(String s1, String s2)
             {
                 Matcher m = p.matcher(s1);
-                if(!m.find())
+                Matcher m1 = p.matcher(s2);
+                if(!m.find() || !m1.find())
                 {
                     return s1.compareTo(s2);
                 }
                 else{
                     Integer num1 = Integer.parseInt(m.group());
-                    
-                    m = p.matcher(s2);
-                    if(!m.find())
+                    Integer num2 = Integer.parseInt(m1.group());
+                    int comparison = num1.compareTo(num2);
+                    if(comparison != 0)
                     {
-                        return (s1.compareTo(s2));
+                        return comparison;
                     }
                     else{
-                        Integer num2 = Integer.parseInt(m.group());
-                        int comparison = num1.compareTo(num2);
-                        if(comparison != 0)
-                        {
-                            return comparison;
-                        }
-                        else{
-                            return s1.compareTo(s2);
-                        }
+                        return s1.compareTo(s2);
                     }
                 }
             }  
