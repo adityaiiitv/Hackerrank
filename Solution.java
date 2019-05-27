@@ -8,22 +8,30 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the hourglassSum function below.
-    static int hourglassSum(int[][] arr) {
-        int sum = -64;
-        for(int i=1;i<5;i++)
+    // Complete the countingValleys function below.
+    static int countingValleys(int n, String s) {
+        int pos = 0;
+        int prev_pos = 0;
+        int valleys = 0;
+        for(int i=0;i<n;i++)
         {
-            int cur_sum = -64;
-            for(int j=1;j<5;j++)
+            prev_pos = pos;
+            if(s.charAt(i)=='U')
             {
-                cur_sum = arr[i-1][j-1] + arr[i-1][j] + arr[i-1][j+1] + arr[i][j] + arr[i+1][j-1] + arr[i+1][j] + arr[i+1][j+1];
-                if(cur_sum > sum)
+                pos++;
+            }
+            else{
+                pos--;
+            }
+            if(prev_pos==0)
+            {
+                if(pos<0)
                 {
-                    sum = cur_sum;
+                    valleys++;
                 }
             }
         }
-        return sum;
+        return valleys;
 
     }
 
@@ -32,19 +40,12 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(System.getenv("OUTPUT_PATH")));
 
-        int[][] arr = new int[6][6];
+        int n = scanner.nextInt();
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        for (int i = 0; i < 6; i++) {
-            String[] arrRowItems = scanner.nextLine().split(" ");
-            scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+        String s = scanner.nextLine();
 
-            for (int j = 0; j < 6; j++) {
-                int arrItem = Integer.parseInt(arrRowItems[j]);
-                arr[i][j] = arrItem;
-            }
-        }
-
-        int result = hourglassSum(arr);
+        int result = countingValleys(n, s);
 
         bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
