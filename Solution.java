@@ -8,30 +8,27 @@ import java.util.regex.*;
 
 public class Solution {
 
-    // Complete the countingValleys function below.
-    static int countingValleys(int n, String s) {
-        int pos = 0;
-        int prev_pos = 0;
-        int valleys = 0;
-        for(int i=0;i<n;i++)
-        {
-            prev_pos = pos;
-            if(s.charAt(i)=='U')
-            {
-                pos++;
+    // Complete the jumpingOnClouds function below.
+    static int jumpingOnClouds(int[] c) {
+        int jumps = 0;
+
+        for (int i = 0; i < c.length; i++) {
+
+            if (c.length - i == 1) return jumps;
+
+            if (c.length - i <= 2) return jumps + 1;
+
+            if (c[i + 2] != 1) {
+
+                i++;
+
             }
-            else{
-                pos--;
-            }
-            if(prev_pos==0)
-            {
-                if(pos<0)
-                {
-                    valleys++;
-                }
-            }
+
+            jumps++;
+
         }
-        return valleys;
+
+        return jumps;
 
     }
 
@@ -43,9 +40,17 @@ public class Solution {
         int n = scanner.nextInt();
         scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
 
-        String s = scanner.nextLine();
+        int[] c = new int[n];
 
-        int result = countingValleys(n, s);
+        String[] cItems = scanner.nextLine().split(" ");
+        scanner.skip("(\r\n|[\n\r\u2028\u2029\u0085])?");
+
+        for (int i = 0; i < n; i++) {
+            int cItem = Integer.parseInt(cItems[i]);
+            c[i] = cItem;
+        }
+
+        int result = jumpingOnClouds(c);
 
         bufferedWriter.write(String.valueOf(result));
         bufferedWriter.newLine();
